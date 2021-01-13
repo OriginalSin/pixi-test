@@ -2,7 +2,13 @@ import babel from 'rollup-plugin-babel';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import css from 'rollup-plugin-css-porter';
-import cpy from 'rollup-plugin-cpy';
+import globals from 'rollup-plugin-node-globals';
+import builtins from 'rollup-plugin-node-builtins';
+// import cpy from 'rollup-plugin-cpy';
+
+const extensions = [
+  '.js', '.jsx', '.ts', '.tsx', '.css'
+];
 
 export default [
     {
@@ -36,5 +42,33 @@ export default [
             }),
         ],
     },    
+    {
+        input: './src/renderer.js',
+        output: [            
+            {
+                file: 'public/renderer.js',
+                format: 'iife',
+                name: 'Renderer',
+                sourcemap: true,
+				globals: {
+					'pixi.js': 'url'
+				},
+            }
+        ],
+        external: [],
+        plugins: [    
+			globals(),
+			builtins(),
+            resolve({
+				preferBuiltins: false
+			}),
+            commonjs(),            
+            babel({
+                // extensions,
+                // babelHelpers: 'bundled',
+                include: ['src/**/*'],
+            }),
+        ],    
+    },
    
 ];

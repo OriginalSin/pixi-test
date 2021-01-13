@@ -1,7 +1,27 @@
-import * as PIXI from 'pixi.js';
 
-const app = new PIXI.Application({ antialias: true });
-document.body.appendChild(app.view);
+const rendererWebGL = new Worker('renderer.js');
+let canvas = document.body.getElementsByTagName('canvas')[0];
+// let canvas = document.createElement('canvas');
+// canvas.width = canvas.height = 800;
+var offscreen = canvas.transferControlToOffscreen();
+rendererWebGL.postMessage({
+	cmd: 'drawTile',
+	// id: this.options.layerId,
+	coords: {x: 1, y: 2, z: 3},
+	canvas : offscreen
+}, [offscreen]);
+/*
+rendererWebGL.postMessage({
+	cmd: 'drawTile',
+	// id: this.options.layerId,
+	coords: {x: 1, y: 2, z: 3},
+	canvas,
+}, [canvas]);
+const app = new PIXI.Application({
+	view: canvas,
+	antialias: true
+});
+// document.body.appendChild(app.view);
 
 const graphics = new PIXI.Graphics();
 
@@ -95,3 +115,4 @@ graphics.drawPolygon(path);
 graphics.endFill();
 
 app.stage.addChild(graphics);
+*/
