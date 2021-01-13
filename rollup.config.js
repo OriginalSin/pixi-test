@@ -18,9 +18,10 @@ export default [
         },
         plugins: [                      
             resolve({
-                customResolveOptions: {
-                    moduleDirectory: ['node_modules', 'src']
-                },
+				preferBuiltins: false
+                // customResolveOptions: {
+                    // moduleDirectory: ['node_modules', 'src']
+                // },
             }),
             commonjs(),            
             css({dest: 'public/main.css', minified: false}),
@@ -35,66 +36,5 @@ export default [
             }),
         ],
     },    
-    // {
-    //     input: 'src/Map.js',
-    //     output: { 
-    //         file: 'dist/cjs/forestry.cjs.js',
-    //         format: 'cjs',
-    //         sourcemap: true,
-    //         globals: {
-    //             'leaflet': 'L',
-    //             'moment': 'moment'
-    //         },            
-    //     },
-    //     external: ['leaflet', 'moment'],
-    //     plugins: [            
-    //         resolve({
-    //             customResolveOptions: {
-    //                 moduleDirectory: ['node_modules', 'src']
-    //             },                
-    //         }),
-    //         commonjs(),
-    //         css({dest: 'dist/cjs/forestry.css', minified: false}),
-    //         cpy([
-    //             {files: 'src/images/*.*', dest: 'dist/images'},
-    //             {files: 'src/ImageBitmapLoader-worker.js', dst: 'dist'},
-    //         ]),
-    //         babel({                
-    //             extensions: ['.js', '.mjs'],
-    //             exclude: ['node_modules/@babel/**', 'node_modules/core-js/**'],
-    //             include: ['src/**', 'node_modules/**']
-    //         }),
-    //     ],
-    // },
-    {
-        input: 'src/Map.js',
-        output: { 
-            file: 'dist/iife/forestry.js',
-            format: 'iife',
-            name: 'Forestry',
-            sourcemap: true,
-            globals: {
-                'leaflet': 'L',
-                'moment': 'moment'
-            },            
-        },        
-        plugins: [            
-            resolve({
-                customResolveOptions: {
-                    moduleDirectory: ['node_modules', 'src']
-                },                
-            }),
-            commonjs(),
-            css({dest: 'dist/iife/forestry.css', minified: false}),
-            cpy([
-                {files: 'src/images/*.*', dest: 'dist/images'},
-                {files: 'src/ImageBitmapLoader-worker.js', dest: 'dist'},
-            ]),
-            babel({                
-                extensions: ['.js', '.mjs'],
-                exclude: ['node_modules/@babel/**', 'node_modules/core-js/**'],
-                include: ['src/**', 'node_modules/**']
-            }),
-        ],
-    },    
+   
 ];
