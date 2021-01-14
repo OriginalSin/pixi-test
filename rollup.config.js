@@ -2,8 +2,8 @@ import babel from 'rollup-plugin-babel';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import css from 'rollup-plugin-css-porter';
-import globals from 'rollup-plugin-node-globals';
-import builtins from 'rollup-plugin-node-builtins';
+// import globals from 'rollup-plugin-node-globals';
+// import builtins from 'rollup-plugin-node-builtins';
 // import cpy from 'rollup-plugin-cpy';
 
 const extensions = [
@@ -57,8 +57,8 @@ export default [
         ],
         external: [],
         plugins: [    
-			globals(),
-			builtins(),
+			// globals(),
+			// builtins(),
             resolve({
 				preferBuiltins: false
 			}),
@@ -66,6 +66,7 @@ export default [
             babel({
                 // extensions,
                 // babelHelpers: 'bundled',
+                exclude: ['node_modules/@pixi/polyfill/**'],
                 include: ['src/**/*'],
             }),
         ],    

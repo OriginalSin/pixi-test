@@ -1,10 +1,43 @@
-import * as PIXI from 'pixi.js';
+// import * as PIXI from 'pixi.js';
+self.document = {
+  createElement(type) {
+    if (type === 'canvas') {
+      return new OffscreenCanvas(0, 0);
+    } else {
+      console.log('CreateElement called with type = ', type);
 
-onmessage = function(evt) {
+      return {
+        style: {},
+      };
+    }
+  },
+
+  addEventListener() { },
+};
+
+self.window = {
+  console: self.console,
+  addEventListener() { },
+  navigator: {},
+  document: self.document,
+  removeEventListener: function () { },
+  WebGLRenderingContext: {}
+};
+
+importScripts(
+  'pixiv5_worker.js'
+);
+
+self.onmessage = function(evt) {
     const {data: {coords, canvas}} = evt;        
         console.log('render', coords, canvas);
     // const gl = canvas.getContext("webgl");
-	/*
+	
+	const app = new PIXI.Application({
+		view: canvas,
+		antialias: true
+	});
+
 	const graphics = new PIXI.Graphics();
 
 	// Rectangle
@@ -97,5 +130,6 @@ onmessage = function(evt) {
 	graphics.endFill();
 
 	app.stage.addChild(graphics);
+	/*
 */    
 };
