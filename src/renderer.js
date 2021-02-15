@@ -35,6 +35,7 @@ self.onmessage = function(evt) {
 	
 	const app = new PIXI.Application({
 		view: canvas,
+		transparent: true,
 		antialias: true
 	});
 
